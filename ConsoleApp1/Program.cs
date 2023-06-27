@@ -5,113 +5,77 @@ class Program
 {
     static void Main(string[] args)
     {
-        //agregarEstudiante();
-        //consultarEstudiantes();
-        //consultarEstudiante();
-        //modificarEstudiante();
-        //eliminarEstudiante();
-        consultarEstudiantesFunciones();
+        agregarcliente();
+        consultarCliente();
+        consultarClientes();
+        eliminarCliente();
+        modificarCliente();
+
+        
     }
 
-    //agregar estudiante
-    public static void agregarEstudiante()
+    public static void agregarcliente()
     {
-        Console.WriteLine("Metodo agregar estudiante");
-        SchoolContext context = new SchoolContext();
-        Student std = new Student();
-        std.Name = "Pedro";
-        context.Students.Add(std);
+        Console.WriteLine("Metodo agregar cliente");
+        ClienteDBContext context = new ClienteDBContext();
+        Cliente std = new Cliente();
+        std.Nombre = "Pedro";
+        context.Cliente.Add(std);
         context.SaveChanges();
       
-        Console.WriteLine("Codigo: "+ std.StudentId + " Nombre: "+ std.Name);
+        Console.WriteLine("Codigo: "+ std.ClienteId + " Nombre: "+ std.Nombre);
 
     }
 
-    public static void consultarEstudiantes()
+    public static void consultarClientes()
     {
-        Console.WriteLine("Metodo consultar estudiantes");
-        SchoolContext context = new SchoolContext();
-        List<Student> listEstudiantes= context.Students.ToList() ;
+        Console.WriteLine("Metodo consultar todos los clientes");
+        ClienteDBContext context = new ClienteDBContext();
+        List<Cliente> listEstudiantes= context.Cliente.ToList() ;
 
         foreach (var item in listEstudiantes)
         {
-            Console.WriteLine("Codigo: " + item.StudentId + " Nombre: " + item.Name);
+            Console.WriteLine("Codigo: " + item.ClienteId + " Nombre: " + item.Nombre);
         }
         
     }
 
-    public static void consultarEstudiante()
+    public static void consultarCliente()
     {
-        Console.WriteLine("Metodo consultar estudiante por Id");
-        SchoolContext context = new SchoolContext();
-        Student std = new Student();
-        std = context.Students.Find(11);
+        Console.WriteLine("Metodo consultar cliente por Id");
+        ClienteDBContext context = new ClienteDBContext();
+        Cliente std = new Cliente();
+        std = context.Cliente.Find(11);
 
-       Console.WriteLine("Codigo: " + std.StudentId + " Nombre: " + std.Name);
+       Console.WriteLine("Codigo: " + std.ClienteId + " Nombre: " + std.Nombre);
       
     }
 
-    public static void modificarEstudiante()
+    public static void modificarCliente()
     {
-        Console.WriteLine("Metodo modificar estudiante");
-        SchoolContext context = new SchoolContext();
-        Student std = new Student();
-        std = context.Students.Find(1);
+        Console.WriteLine("Metodo modificar cliente");
+        ClienteDBContext context = new ClienteDBContext();
+        Cliente std = new Cliente();
+        std = context.Cliente.Find(1);
 
-        std.Name = "Anahi";
+        std.Nombre = "Anahi";
         context.SaveChanges();
-        Console.WriteLine("Codigo: " + std.StudentId + " Nombre: " + std.Name);
+        Console.WriteLine("Codigo: " + std.ClienteId + " Nombre: " + std.Nombre);
 
     }
 
-    public static void eliminarEstudiante()
+    public static void eliminarCliente()
     {
         Console.WriteLine("Metodo eliminar estudiante");
-        SchoolContext context = new SchoolContext();
-        Student std = new Student();
-        std = context.Students.Find(5);
+        ClienteDBContext context = new ClienteDBContext();
+        Cliente std = new Cliente();
+        std = context.Cliente.Find(5);
         context.Remove(std);
         context.SaveChanges();
-        Console.WriteLine("Codigo: " + std.StudentId + " Nombre: " + std.Name);
+        Console.WriteLine("Codigo: " + std.ClienteId + " Nombre: " + std.Nombre);
 
     }
-    public static void consultarEstudiantesFunciones()
-    {
-        Console.WriteLine("Metodo consultar estudiantes con el uso de funciones");
-        SchoolContext context = new SchoolContext();
-        List<Student> listEstudiantes;
-
-        Console.WriteLine("Cantidad de registros: " + context.Students.Count());
-        Student std = context.Students.First();
-
-        Console.WriteLine("Primer elemento de la tabla:" +  std.StudentId +"-" +std.Name);
-
-        //listEstudiantes = context.Students.Where(s => s.StudentId > 2 && s.Name == "Anita").ToList();
-
-        //listEstudiantes = context.Students.Where(s => s.Name == "Patty" || s.Name == "Anita").ToList();
-
-        listEstudiantes = context.Students.Where(s => s.Name.StartsWith("A")).ToList();
-        
-        /*
-        var query = context.Students.GroupBy( s => s.Name) 
-        .Select(g => new
-        {
-            Nombre = g.Key,
-            Cantidad = g.Count()
-        }). ToList();
-
-        foreach (var result in query)
-        {
-            Console.WriteLine($"Nombre: {result.Nombre}, Cantidad: {result.Cantidad}");
-        }
-        */
-        
-        
-        foreach (var item in listEstudiantes)
-        {
-            Console.WriteLine("Codigo: " + item.StudentId + " Nombre: " + item.Name);
-        }
+  
         
 
     }
-}
